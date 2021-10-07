@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/tailwind.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Dashboard</title>
+</head>
+
+<body x-data="{sidebarNav: true, mobileNav: false}">
+
+  <nav class="fixed top-0 w-full z-40 shadow-lg py-2 px-4 bg-white">
+    <div class="flex items-center gap-x-10 justify-between">
+        <button @click="sidebarNav = !sidebarNav" class="lg:hidden">
+            <svg x-show="sidebarNav" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+            </svg>
+            <svg x-show="!sidebarNav" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </button>
+        <div class="flex space-x-16 text-sm font-bold">
+            <!-- logo -->
+            <a href="#" class="flex items-center text-gray-700 hover:text-gray-900">
+              <img src="assets/images/logoipsum.svg" alt="Logo">
+            </a>
+            <!-- nav -->
+            <div class="nav-links hidden md:flex items-center space-x-2 font-normal">
+                <a href="#" class="py-2 px-5 rounded-full">Home</a>
+                <a href="#" class="py-2 px-5 rounded-full">Accounts</a>
+                <a href="#" class="py-2 px-5 rounded-full">Portfolio</a>
+                <a href="#" class="active py-2 px-5 rounded-full">Reports</a>
+                <a href="#" class="py-2 px-5 rounded-full">More</a>
+            </div>
+        </div>
+        <div x-data="{ProfileDropDown: false}" class="relative">
+            <a @click.prevent="ProfileDropDown = true" href="#"><img src="assets/images/person.png"></a>
+            <div class="absolute top-10 right-0 mt-2 w-48 rounded-md shadow-lg py-2 bg-white" x-show="ProfileDropDown" @click.away="ProfileDropDown = false" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95">
+                <a href="#" class="block px-4 py-2 text-sm text-midnight-blue hover:text-magenta-dark">Your Profile</a>
+                <a href="#" class="block px-4 py-2 text-sm text-midnight-blue hover:text-magenta-dark">Settings</a>
+                <a href="#" class="block px-4 py-2 text-sm text-midnight-blue hover:text-magenta-dark">Sign out</a>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="absolute top-16 left-0 w-full bg-white z-30 md:hidden px-4 py-4 text-sm font-semibold" x-show="mobileNav" x-transition:enter="transition ease-out origin-top-right duration-200" x-transition:enter-start="opacity-0 transform" x-transition:enter-end="opacity-100 transform" x-transition:leave="transition ease-in origin-top-right duration-200" x-transition:leave-start="opacity-100 transform" x-transition:leave-end="opacity-0 transform">
+      <div class="h-11 bg-gray-100 flex items-center rounded-lg">
+        <img class="w-4 mx-3" src="assets/images/magnifying-glass.svg" alt="">
+        <input class="bg-gray-100 h-10 w-full px-2 rounded-r-lg text-sm focus:outline-none" type="search" name="search" placeholder="Search">
+      </div>
+      <a href="#" class="block py-2 text-midnight-blue hover:text-magenta-dark">Home</a>
+      <a href="#" class="block py-2 text-midnight-blue hover:text-magenta-dark">Shop</a>
+      <a href="#" class="block py-2 text-midnight-blue hover:text-magenta-dark">Forum</a>
+      <a href="#" class="block py-2 text-midnight-blue hover:text-magenta-dark">Groups</a>
+    </div>
+  </nav>
+  <div class="h-screen flex flex-col md:flex-row w-full overflow-hidden bg-purple bg-opacity-10 pt-16 font-poppins">
+    <!-- Sidebar -->
+    <div class="absolute top-0 md:top-auto h-screen md:h-auto md:relative flex flex-shrink-0">
+      <div :class="{'flex lg:hidden absolute md:relative z-50 md:z-10 top-0 md:top-auto h-full md:h-auto' : !sidebarNav, 'hidden lg:flex' : sidebarNav}" class="flex-col w-64 lg:w-52 border-r border-gray-200">
+        <div class="flex md:hidden justify-between px-3.5 pt-2.5 bg-white">
+          <div>
+            <a href="#" class="flex items-center text-gray-700 hover:text-gray-900">
+                <img src="assets/images/logoipsum.svg" alt="Logo">
+            </a>
+          </div>
+          <button @click="sidebarNav = !sidebarNav">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <!-- nav -->
+        <div class="lg:hidden nav-links bg-white  overflow-x-auto flex items-center space-x-2 font-light py-4">
+            <a href="#" class="py-2 px-5 rounded-full">Home</a>
+            <a href="#" class="py-2 px-5 rounded-full">Accounts</a>
+            <a href="#" class="py-2 px-5 rounded-full">Portfolio</a>
+            <a href="#" class="active py-2 px-5 rounded-full">Reports</a>
+            <a href="#" class="py-2 px-5 rounded-full">More</a>
+        </div>
+        <div class="flex flex-col flex-grow pt-5 pb-4 bg-white overflow-y-auto">
+          <div class="flex-grow flex flex-col">
+            <h1 class="text-2xl font-bold pl-1">Reports</h1>
+            <nav class="mt-5 sidebar-nav flex-1 bg-white space-y-1">
+              <a href="#" class="active group flex space-x-5 py-2 px-5 items-center text-sm font-semibold">
+                <span>Cash Accounts</span>
+              </a>
+              <a href="#" class="group flex space-x-5 py-2 px-5 items-center text-sm font-semibold">
+                <span>Micro Funds</span>
+              </a>
+              <a href="#" class="group flex space-x-5 py-2 px-5 items-center text-sm font-semibold">
+                <span>Global Balanced</span>
+              </a>
+              <a href="#" class="group flex space-x-5 py-2 px-5 items-center text-sm font-semibold">
+                <span>Night Flex</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="flex flex-col flex-1 overflow-y-auto bg-light-blue py-10 px-4">
+      <main class="flex-1 relative focus:outline-none">
+        <div class="grid grid-cols-12 gap-4 md:gap-5">
+          <div class="col-span-12 md:col-span-4 flex flex-col gap-y-5">
+            <div class="flex flex-col w-full gap-y-1 p-3 bg-white rounded-2xl">
+                <div class="flex flex-col space-y-2 text-sm lg:text-base">
+                    <p class="text-base font-bold">Stichting Juridisch Eigenaar Coeus Capital</p>
+                    <div class="flex items-center space-x-3 text-xs px-5 bg-purple text-purple bg-opacity-10 max-w-max py-1.5 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p class="flex items-center space-x-1 pt-0.5">
+                            <span>2021-09-29</span>
+                            <span>to</span>
+                            <span>2021-10-06</span>
+                        </p>
+                    </div>
+                    <p class="flex items-center justify-between font-semibold">
+                        <span>Balance</span>
+                        <span>$814,798.44</span>
+                    </p>
+                    <p class="flex items-center justify-between">
+                        <span>Equity</span>
+                        <span>$814,798.44</span>
+                    </p>
+                    <p class="flex items-center justify-between">
+                        <span>Pending </span>
+                        <span>$0.00</span>
+                    </p>
+                    <p class="border-t-2 BORDER-GREY-05 pt-4 flex items-center justify-between">
+                        <span>Net Deposit</span>
+                        <span>$815,000.93</span>
+                    </p> 
+                    <p class="flex items-center justify-between">
+                        <span>Total Net Profit</span>
+                        <span>- $202.49</span>
+                    </p> 
+                    <div class="flex flex-col space-y-2">
+                        <p>Fees</p>
+                        <p class="border-t-2 BORDER-GREY-05 pt-3 flex items-center justify-between">
+                            <span>Total Paid Performance Fees</span>
+                            <span>$0.00</span>
+                        </p> 
+                        <p class="flex items-center justify-between">
+                            <span>Total Paid Management Fees</span>
+                            <span>$0.00</span>
+                        </p> 
+                    </div>
+                    <div class="flex flex-col space-y-1">
+                        <p>Transaction Cost</p>
+                        <p class="border-t-2 BORDER-GREY-05 pt-3 flex items-center justify-between">
+                            <span>Total Transaction Cost</span>
+                            <span>$22.40</span>
+                        </p> 
+                        <p class="flex items-center justify-between">
+                            <span>Total Trade Commission</span>
+                            <span>$16.49</span>
+                        </p> 
+                        <p class="flex items-center justify-between">
+                            <span>Total Trade Swaps</span>
+                            <span>$5.90</span>
+                        </p> 
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-8 flex flex-col gap-y-5 overflow-hidden rounded-2xl">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="overflow-hidden">
+                    <table class="min-w-full divide-y divide-grey-05">
+                        <thead class="bg-white rounded-t-2xl">
+                            <tr>
+                                <th scope="col" class="px-3 text-left text-lg font-bold text-black">
+                                    <button class="flex w-full space-x-2 items-center justify-between focus:outline-none px-0.5 py-3">
+                                        <span>Description</span>
+                                        <span>
+                                            <svg class="fill-current rotate-180 text-grey-04 transform" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.1347 1.07765C11.0028 0.945688 10.8465 0.879761 10.6659 0.879761H1.33273C1.15206 0.879761 0.995872 0.945688 0.863907 1.07765C0.731943 1.20976 0.666016 1.36595 0.666016 1.54651C0.666016 1.72704 0.731943 1.88323 0.863907 2.01523L5.53052 6.68185C5.66263 6.81381 5.81882 6.87988 5.99935 6.87988C6.17987 6.87988 6.33621 6.81381 6.46806 6.68185L11.1347 2.01519C11.2665 1.88323 11.3327 1.72704 11.3327 1.54648C11.3327 1.36595 11.2665 1.20976 11.1347 1.07765Z"/>
+                                            </svg>
+                                            <svg class="fill-current text-grey-04" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.1347 1.07765C11.0028 0.945688 10.8465 0.879761 10.6659 0.879761H1.33273C1.15206 0.879761 0.995872 0.945688 0.863907 1.07765C0.731943 1.20976 0.666016 1.36595 0.666016 1.54651C0.666016 1.72704 0.731943 1.88323 0.863907 2.01523L5.53052 6.68185C5.66263 6.81381 5.81882 6.87988 5.99935 6.87988C6.17987 6.87988 6.33621 6.81381 6.46806 6.68185L11.1347 2.01519C11.2665 1.88323 11.3327 1.72704 11.3327 1.54648C11.3327 1.36595 11.2665 1.20976 11.1347 1.07765Z"/>
+                                            </svg>
+                                        </span>      
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-3 text-left text-lg font-bold text-black">
+                                    <button class="flex w-full space-x-2 items-center justify-between focus:outline-none px-0.5 py-3">
+                                        <span>Credit</span>
+                                        <span>
+                                            <svg class="fill-current rotate-180 text-grey-04 transform" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.1347 1.07765C11.0028 0.945688 10.8465 0.879761 10.6659 0.879761H1.33273C1.15206 0.879761 0.995872 0.945688 0.863907 1.07765C0.731943 1.20976 0.666016 1.36595 0.666016 1.54651C0.666016 1.72704 0.731943 1.88323 0.863907 2.01523L5.53052 6.68185C5.66263 6.81381 5.81882 6.87988 5.99935 6.87988C6.17987 6.87988 6.33621 6.81381 6.46806 6.68185L11.1347 2.01519C11.2665 1.88323 11.3327 1.72704 11.3327 1.54648C11.3327 1.36595 11.2665 1.20976 11.1347 1.07765Z"/>
+                                            </svg>
+                                            <svg class="fill-current text-grey-04" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.1347 1.07765C11.0028 0.945688 10.8465 0.879761 10.6659 0.879761H1.33273C1.15206 0.879761 0.995872 0.945688 0.863907 1.07765C0.731943 1.20976 0.666016 1.36595 0.666016 1.54651C0.666016 1.72704 0.731943 1.88323 0.863907 2.01523L5.53052 6.68185C5.66263 6.81381 5.81882 6.87988 5.99935 6.87988C6.17987 6.87988 6.33621 6.81381 6.46806 6.68185L11.1347 2.01519C11.2665 1.88323 11.3327 1.72704 11.3327 1.54648C11.3327 1.36595 11.2665 1.20976 11.1347 1.07765Z"/>
+                                            </svg>
+                                        </span>      
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-3 text-left text-lg font-bold text-black">
+                                    <button class="flex w-full space-x-2 items-center justify-between focus:outline-none px-0.5 py-3">
+                                        <span>Debit</span>
+                                        <span>
+                                            <svg class="fill-current rotate-180 text-grey-04 transform" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.1347 1.07765C11.0028 0.945688 10.8465 0.879761 10.6659 0.879761H1.33273C1.15206 0.879761 0.995872 0.945688 0.863907 1.07765C0.731943 1.20976 0.666016 1.36595 0.666016 1.54651C0.666016 1.72704 0.731943 1.88323 0.863907 2.01523L5.53052 6.68185C5.66263 6.81381 5.81882 6.87988 5.99935 6.87988C6.17987 6.87988 6.33621 6.81381 6.46806 6.68185L11.1347 2.01519C11.2665 1.88323 11.3327 1.72704 11.3327 1.54648C11.3327 1.36595 11.2665 1.20976 11.1347 1.07765Z"/>
+                                            </svg>
+                                            <svg class="fill-current text-grey-04" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.1347 1.07765C11.0028 0.945688 10.8465 0.879761 10.6659 0.879761H1.33273C1.15206 0.879761 0.995872 0.945688 0.863907 1.07765C0.731943 1.20976 0.666016 1.36595 0.666016 1.54651C0.666016 1.72704 0.731943 1.88323 0.863907 2.01523L5.53052 6.68185C5.66263 6.81381 5.81882 6.87988 5.99935 6.87988C6.17987 6.87988 6.33621 6.81381 6.46806 6.68185L11.1347 2.01519C11.2665 1.88323 11.3327 1.72704 11.3327 1.54648C11.3327 1.36595 11.2665 1.20976 11.1347 1.07765Z"/>
+                                            </svg>
+                                        </span>      
+                                    </button>
+                                </th>
+                                <th scope="col" class="px-3 text-left text-lg font-bold text-black">
+                                    <button class="flex w-full space-x-2 items-center justify-between focus:outline-none px-0.5 py-3">
+                                        <span>Balance</span>
+                                        <span>
+                                            <svg class="fill-current rotate-180 text-grey-04 transform" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.1347 1.07765C11.0028 0.945688 10.8465 0.879761 10.6659 0.879761H1.33273C1.15206 0.879761 0.995872 0.945688 0.863907 1.07765C0.731943 1.20976 0.666016 1.36595 0.666016 1.54651C0.666016 1.72704 0.731943 1.88323 0.863907 2.01523L5.53052 6.68185C5.66263 6.81381 5.81882 6.87988 5.99935 6.87988C6.17987 6.87988 6.33621 6.81381 6.46806 6.68185L11.1347 2.01519C11.2665 1.88323 11.3327 1.72704 11.3327 1.54648C11.3327 1.36595 11.2665 1.20976 11.1347 1.07765Z"/>
+                                            </svg>
+                                            <svg class="fill-current text-grey-04" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.1347 1.07765C11.0028 0.945688 10.8465 0.879761 10.6659 0.879761H1.33273C1.15206 0.879761 0.995872 0.945688 0.863907 1.07765C0.731943 1.20976 0.666016 1.36595 0.666016 1.54651C0.666016 1.72704 0.731943 1.88323 0.863907 2.01523L5.53052 6.68185C5.66263 6.81381 5.81882 6.87988 5.99935 6.87988C6.17987 6.87988 6.33621 6.81381 6.46806 6.68185L11.1347 2.01519C11.2665 1.88323 11.3327 1.72704 11.3327 1.54648C11.3327 1.36595 11.2665 1.20976 11.1347 1.07765Z"/>
+                                            </svg>
+                                        </span>      
+                                    </button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y bg-white rounded-b-2xl">
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <div class="flex flex-col space-y-1">
+                                        <p class="text-lg font-semibold">2021/10/06 <span class="pl-2s font-bold">Sell USDCAD.ne</span></p>
+                                        <span class="text-sm text-gray-400">16:00:01 | Volume: 0.03 lots | Commission: $ 0.23 | Swap: $ 0.00 | opened at: 2021/10/06</span>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span>$6.03</span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span></span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap text-right">
+                                    <span class="font-lato font-medium text-sm md:text-base">$814,798.44</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <div class="flex flex-col space-y-1">
+                                        <p class="text-lg font-semibold">2021/10/06 <span class="pl-2s font-bold">Sell USDCAD.ne</span></p>
+                                        <span class="text-sm text-gray-400">16:00:01 | Volume: 0.03 lots | Commission: $ 0.23 | Swap: $ 0.00 | opened at: 2021/10/06</span>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span>$7.46</span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap text-right">
+                                    <span class="font-lato font-medium text-sm md:text-base">$814,798.44</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <div class="flex flex-col space-y-1">
+                                        <p class="text-lg font-semibold">2021/10/06 <span class="pl-2s font-bold">Sell USDCAD.ne</span></p>
+                                        <span class="text-sm text-gray-400">16:00:01 | Volume: 0.03 lots | Commission: $ 0.23 | Swap: $ 0.00 | opened at: 2021/10/06</span>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span></span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span>- $2.71</span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap text-right">
+                                    <span class="font-lato font-medium text-sm md:text-base">$814,798.44</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <div class="flex flex-col space-y-1">
+                                        <p class="text-lg font-semibold">2021/10/06 <span class="pl-2s font-bold">Sell USDCAD.ne</span></p>
+                                        <span class="text-sm text-gray-400">16:00:01 | Volume: 0.03 lots | Commission: $ 0.23 | Swap: $ 0.00 | opened at: 2021/10/06</span>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span>$6.03</span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span></span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap text-right">
+                                    <span class="font-lato font-medium text-sm md:text-base">$814,798.44</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <div class="flex flex-col space-y-1">
+                                        <p class="text-lg font-semibold">2021/10/06 <span class="pl-2s font-bold">Sell USDCAD.ne</span></p>
+                                        <span class="text-sm text-gray-400">16:00:01 | Volume: 0.03 lots | Commission: $ 0.23 | Swap: $ 0.00 | opened at: 2021/10/06</span>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span>$7.46</span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap text-right">
+                                    <span class="font-lato font-medium text-sm md:text-base">$814,798.44</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <div class="flex flex-col space-y-1">
+                                        <p class="text-lg font-semibold">2021/10/06 <span class="pl-2s font-bold">Sell USDCAD.ne</span></p>
+                                        <span class="text-sm text-gray-400">16:00:01 | Volume: 0.03 lots | Commission: $ 0.23 | Swap: $ 0.00 | opened at: 2021/10/06</span>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span>$6.03</span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span></span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap text-right">
+                                    <span class="font-lato font-medium text-sm md:text-base">$814,798.44</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <div class="flex flex-col space-y-1">
+                                        <p class="text-lg font-semibold">2021/10/06 <span class="pl-2s font-bold">Sell USDCAD.ne</span></p>
+                                        <span class="text-sm text-gray-400">16:00:01 | Volume: 0.03 lots | Commission: $ 0.23 | Swap: $ 0.00 | opened at: 2021/10/06</span>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                    <span>$7.46</span>
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap">
+                                </td>
+                                <td class="px-4 py-4 whitespace-nowrap text-right">
+                                    <span class="font-lato font-medium text-sm md:text-base">$814,798.44</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="./js/alpine.js"></script>
+</body>
+
+</html>

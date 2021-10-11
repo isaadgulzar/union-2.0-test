@@ -15,7 +15,7 @@
 <body x-data="{sidebarNav: true, mobileNav: false}">
     <header class="fixed top-0  w-full bg-white">
         <div class="">
-            <div class="relative h-10 flex justify-between px-2 bg-gray-100 border-b">
+            <div class="relative h-10 flex justify-between px-10 bg-gray-100 border-b">
                 <div class="relative z-10 px-2 flex lg:px-0">
                 <div class="flex-shrink-0 flex items-center">
                     <img class="block h-7 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
@@ -62,7 +62,7 @@
                     </button>
                 </div>
             </div>
-            <nav class="nav-links hidden lg:py-2 lg:flex lg:space-x-2 text-sm mx-5 border-b" aria-label="Global">
+            <nav class="nav-links hidden lg:py-2 lg:flex lg:space-x-2 text-sm font-medium mx-10 border-b" aria-label="Global">
                 <a href="#" class="py-0.5 px-3 rounded-full">Home</a>
                 <a href="#" class="py-0.5 px-3 rounded-full">Accounts</a>
                 <a href="#" class="py-0.5 px-3 rounded-full">Portfolio</a>
@@ -71,7 +71,7 @@
             </nav>
         </div>
     </header>
-  <div class="h-screen flex flex-col md:flex-row w-full overflow-hidden bg-white  pt-10 lg:pt-20 lg:pl-5">
+  <div class="h-screen flex flex-col md:flex-row w-full overflow-hidden bg-white pt-10 lg:pt-20 lg:pl-10">
     <!-- Sidebar -->
     <div class="absolute top-0 md:top-auto h-screen md:h-auto md:relative flex flex-shrink-0 pt-3">
       <div :class="{'flex lg:hidden absolute md:relative bg-white z-50 md:z-10 top-0 md:top-auto h-full md:h-auto pl-2 lg:pl-0' : !sidebarNav, 'hidden lg:flex' : sidebarNav}" class="flex-col w-64 lg:w-48">
@@ -83,27 +83,27 @@
           </button>
         </div>
         <!-- nav -->
-        <nav class="lg:hidden nav-links lg:py-3 overflow-x-auto flex items-center space-x-2 text-sm" aria-label="Global">
+        <nav class="lg:hidden nav-links lg:py-3 overflow-x-auto flex items-center space-x-2 text-sm font-medium" aria-label="Global">
             <a href="#" class="py-0.5 px-3 rounded-full">Home</a>
             <a href="#" class="py-0.5 px-3 rounded-full">Accounts</a>
             <a href="#" class="py-0.5 px-3 rounded-full">Portfolio</a>
             <a href="#" class="active py-0.5 px-3 rounded-full">Reports</a>
             <a href="#" class="py-0.5 px-3 rounded-full">More</a>
         </nav>
-        <div class="flex flex-col flex-grow pt-0 pb-4 bg-white overflow-y-auto">
+        <div class="flex flex-col flex-grow pt-5 pb-4 bg-white overflow-y-auto">
           <div class="flex-grow flex flex-col">
             <h1 class="font-semibold">Reports</h1>
-            <nav class="mt-1 sidebar-nav flex-1 bg-white">
-              <a href="#" class="active block py-0 px-2 items-center text-sm">
+            <nav class="mt-4 sidebar-nav flex-1 bg-white">
+              <a href="#" class="active block py-1 px-2 items-center text-sm">
                 <span>Cash Accounts</span>
               </a>
-              <a href="#" class="block py-0 px-2 items-center text-sm">
+              <a href="#" class="block py-1 px-2 items-center text-sm">
                 <span>Micro Funds</span>
               </a>
-              <a href="#" class="block py-0 px-2 items-center text-sm">
+              <a href="#" class="block py-1 px-2 items-center text-sm">
                 <span>Global Balanced</span>
               </a>
-              <a href="#" class="block py-0 px-2 items-center text-sm">
+              <a href="#" class="block py-1 px-2 items-center text-sm">
                 <span>Night Flex</span>
               </a>
             </nav>
@@ -114,7 +114,7 @@
     <!-- Content -->
     <div class="flex flex-col flex-1 overflow-y-auto bg-light-blue py-4 px-4 bg-white">
       <main class="flex-1 relative focus:outline-none">
-        <div class="grid grid-cols-12 gap-4 md:gap-5">
+        <div class="grid grid-cols-12 gap-4 md:gap-5 pt-5">
             <div class="col-span-12">
                 <div class="md:flex md:items-center md:justify-between">
                     <div class="flex-1 min-w-0">
